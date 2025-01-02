@@ -1,0 +1,22 @@
+stages:
+  - build
+  - deploy
+
+build:
+  image: node:16
+  stage: build
+  script:
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - build/
+
+deploy:
+  image: node:16
+  stage: deploy
+  script:
+    - npm install -g serve
+    - serve -s build
+  only:
+    - main
